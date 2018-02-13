@@ -1,0 +1,268 @@
+/*借款明细*/
+html,body,.app-content{
+    background: #0E1010;
+}
+.top{
+    height: 80px;
+    line-height: 80px;
+    padding-left: 75px;
+    padding-right: 15px;
+    position: relative;
+}
+.top .circle{
+    width: 50px;height: 50px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+.top span{
+    font-size: 14px;
+    color: #FFF;
+}
+.top a{
+    color: #009C57;
+    font-size: 14px;
+    float: right;
+}
+.top a span{
+    margin-left: 5px;
+    color: #009C57;
+}
+.borrowing-detail{
+    padding: 15px;
+    padding-top: 0;
+}
+.detail{
+    background: #FFF;
+    border-radius: 10px;
+    padding: 15px;
+    overflow: hidden;
+}
+.user-names{
+    padding-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+}
+.user-names:before{
+    content: "";
+    height: 1px;
+    width: 100%;
+    background: #E1E1E1;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.user-names .user-item{
+    float: left;
+    width: 33.33%;
+    text-align: center;
+}
+.user-names .user-item:first-child{
+    text-align: left;
+}
+.user-names .user-item:last-child{
+    text-align: right;
+}
+.user-names .user-item .arrows{
+    display: inline-block;
+    width: 59px;
+    height: 19px;
+    background: #000;
+    background: url("../../img/14.png");
+    background-size: cover;
+    position: relative;
+    top: 24px;
+}
+.user-names .user-item .icon-red{
+    display: inline-block;
+    height: 3px;
+    width: 30px;
+    background: red;
+}
+.user-names .user-item .icon-blue{
+    display: inline-block;
+    height: 3px;
+    width: 30px;
+    background: blue;
+}
+.user-names .user-item .name{
+    font-size: 18px;
+}
+.user-names .user-item .hint{
+    font-size: 13px;
+    color: #999999;
+    margin: 5px 0;
+}
+.money-bar{
+    padding: 15px 0;
+}
+.money-bar span{
+    font-size: 13px;
+    color: #999999;
+}
+.money-bar .money{
+    font-size: 30px;
+    color: #01A358;
+    font-weight: 700;
+}
+.profit-bar{
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 15px;
+}
+.profit-item{
+    float: left;
+    width: 33.33%;
+}
+.profit-item2{
+    width: 25%;
+}
+.profit-item .hint-title{
+    font-size: 13px;
+    color: #999999;
+    margin-bottom: 5px;
+}
+.profit-item .content{
+    font-size: 14px;
+}
+.profit-item:first-child{
+    text-align: left;
+}
+.profit-item:last-child{
+    text-align: right;
+}
+.video-div{
+    margin-top: 15px;
+    height: 180px;
+    background: #000000;
+    border-radius: 10px;
+    position: relative;
+}
+.video{
+    height: 180px;
+    width: 100%;
+    border-radius: 10px;
+}
+.play-icon{
+    width: 66px;
+    height: 66px;
+    background: #FFF;
+    background: url("../../img/4.png");
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -os-transform: translate(-50%, -50%);
+}
+.fix-buttons{
+    width: 100%;
+    overflow: hidden;
+    margin-top: 15px;
+}
+.fix-buttons div{
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+.fix-left{
+    padding-right: 7.5px !important;
+}
+.fix-right{
+    padding-left: 7.5px !important;
+}
+.fix-buttons button{
+    width: 100%;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+}
+.fix-left button{
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.fix-left button:active, .fix-left button:focus{
+    color: white;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.fix-right button{
+    border: 1px solid #0D8EFF;
+    background: #0D8EFF;
+}
+.fix-right button:active, .fix-right button:focus{
+    color: white;
+    border: 1px solid #0D8EFF;
+    background: #0D8EFF;
+}
+
+.border{
+    border-bottom: 3px dashed #FFF;
+    position: relative;
+}
+.border:before{
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: -9px;
+    width: 20px;
+    height: 20px;
+    background: #0E1010;
+    border-radius: 50%;
+}
+.border:after{
+    content: "";
+    position: absolute;
+    right: -10px;
+    top: -9px;
+    width: 20px;
+    height: 20px;
+    background: #0E1010;
+    border-radius: 50%;
+}
+
+.share-hint{
+    position: fixed;
+    right: 50px;
+    border: 2px solid #FFF;
+    background: rgba(0, 0, 0, 0);
+    padding: 10px;
+    top: 90px;
+    border-radius: 10px;
+    z-index: 9999;
+    display: none;
+    width: 80px;
+    color: #FFF;
+}
+.share-arrows{
+    width: 80px;
+    height: 87px;
+    background: url("../../img/13.png");
+    background-size: cover;
+    position: absolute;
+    top: -86px;
+    right: -20px;
+}
+
+.paymentBtn{
+    width: 100%;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #01A358;
+    background: #01A358;
+}

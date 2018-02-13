@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magic.weijd.mapper.IAdminsMapper">
+
+    <select id="login" resultType="com.magic.weijd.entity.Admins">
+        select * from admins a WHERE a.account = #{account}
+    </select>
+
+
+    <select id="info" resultType="com.magic.weijd.entity.Admins">
+        select * from admins a WHERE a.id = #{id}
+    </select>
+
+    <insert id="save" parameterType="com.magic.weijd.entity.Admins">
+        INSERT INTO admins (account,pwd,userName)
+        VALUES (#{account},#{pwd},#{userName})
+    </insert>
+
+    <update id="update" parameterType="com.magic.weijd.entity.Admins">
+        update admins
+        <set>
+            <if test="pwd != null and pwd != ''">
+                pwd = #{pwd},
+            </if>
+            <if test="userName != null and userName != ''">
+                userName = #{userName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="listForAdmin" resultType="com.magic.weijd.entity.Admins" parameterType="map">
+        SELECT
+          *
+        FROM admins a
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND a.userName Like '%${userName}%'
+        </if>
+        <if test="account != null and account != ''">
+            AND a.account Like '%${account}%'
+        </if>
+        ORDER BY
+        <if test="pageArgs != null">
+            <if test="pageArgs.column != null and pageArgs.column != ''">
+                ${pageArgs.column} ${pageArgs.order},
+            </if>
+        </if>
+        a.id DESC
+        <if test="pageArgs != null">
+            limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+        </if>
+    </select>
+
+
+    <select id="listForAdminCount" resultType="java.lang.Integer" parameterType="map">
+        SELECT
+        COUNT(0)
+        FROM admins a
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND a.userName Like '%${userName}%'
+        </if>
+        <if test="account != null and account != ''">
+            AND a.account Like '%${account}%'
+        </if>
+    </select>
+
+</mapper>

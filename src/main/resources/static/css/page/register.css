@@ -1,0 +1,154 @@
+/*注册*/
+.title{
+    font-size: 14px;
+    color: #999999;
+    padding: 15px;
+}
+.app-form{
+    background: #FFF;
+    position: relative;
+    overflow: hidden;
+    padding: 1px 0;
+}
+.app-form:before{
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #E1E1E1;
+    left: 0;
+    top: 0;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-form:after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #E1E1E1;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-form li{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    clear: both;
+    box-sizing: border-box;
+}
+.app-form li:after{
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    left: 15px;
+    bottom: 0;
+    background: #E1E1E1;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-form li:last-child:after{
+    height: 0;
+}
+.app-form li label{
+    display: inline-block;
+    width: 28%;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.app-form li input, textarea{
+    width: 72%;
+    padding: 15px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 14px;
+    left: 28%;
+    position: relative;
+}
+
+.graph-qr-btn{
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 107px;
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+    background: #999999;
+    background: url("../../img/qr-bg.png");
+    background-size: cover;
+    background-position: center;
+    font-family: Arial;
+    font-style: italic;
+    color: coral;
+    font-size: 30px;
+    font-weight: bolder;
+    -webkit-user-select: none;
+}
+
+.qr-btn{
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: 92px;
+    padding: 5px 10px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.qr-btn[disabled]{
+    background: #c0c0c0;
+    border: 1px solid #c0c0c0;
+}
+.qr-btn-btn:active, .qr-btn:focus{
+    color: white;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+
+.button-bar{
+    padding: 15px;
+}
+.submit-btn{
+    width: 100%;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.submit-btn:active, .submit-btn:focus{
+    color: white;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+
+.agreement-bar{
+    padding: 15px;
+}
+.agreement-bar span{
+    font-size: 13px;
+}
+.agreement-bar .agreement-btn{
+    color: #0D8EFF;
+}
+

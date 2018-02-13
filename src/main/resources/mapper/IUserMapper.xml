@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magic.weijd.mapper.IUserMapper">
+    <resultMap id="BaseUser" type="com.magic.weijd.entity.User">
+        <id column="id" property="id" javaType="java.lang.Integer" />
+        <result column="userName" property="userName" javaType="java.lang.String" />
+        <result column="phone" property="phone" javaType="java.lang.String" />
+        <result column="idCard" property="idCard" javaType="java.lang.String" />
+        <result column="idCardImg" property="idCardImg" javaType="java.lang.String" />
+        <result column="avatar" property="avatar" javaType="java.lang.String" />
+        <result column="qq" property="qq" javaType="java.lang.String" />
+        <result column="wx" property="wx" javaType="java.lang.String" />
+        <result column="job" property="job" javaType="java.lang.String" />
+        <result column="age" property="age" javaType="java.lang.Integer" />
+        <result column="isAtSchool" property="isAtSchool" javaType="java.lang.Integer" />
+        <result column="cityId" property="cityId" javaType="java.lang.Integer" />
+        <result column="isValid" property="isValid" javaType="java.lang.Integer" />
+        <result column="creditPoints" property="creditPoints" javaType="java.lang.Integer" />
+        <result column="address" property="address" javaType="java.lang.String" />
+        <result column="fatherName" property="fatherName" javaType="java.lang.String" />
+        <result column="fatherPhone" property="fatherPhone" javaType="java.lang.String" />
+        <result column="fatherJobAddress" property="fatherJobAddress" javaType="java.lang.String" />
+        <result column="momName" property="momName" javaType="java.lang.String" />
+        <result column="momPhone" property="momPhone" javaType="java.lang.String" />
+        <result column="momJobAddress" property="momJobAddress" javaType="java.lang.String" />
+        <result column="personJsonAry" property="personJsonAry" javaType="java.lang.String" />
+        <result column="payPwd" property="payPwd" javaType="java.lang.String" />
+        <result column="openId" property="openId" javaType="java.lang.String" />
+        <result column="createTime" property="createTime" javaType="java.util.Date" />
+        <result column="updateTime" property="updateTime" javaType="java.util.Date" />
+        <result column="borrowOutTotalPrice" property="borrowOutTotalPrice" javaType="java.lang.Double" />
+        <result column="borrowJoinTotalPrice" property="borrowJoinTotalPrice" javaType="java.lang.Double" />
+        <result column="nowToBePaidPrice" property="nowToBePaidPrice" javaType="java.lang.Double" />
+        <result column="nowToBePaidOutPrice" property="nowToBePaidOutPrice" javaType="java.lang.Double" />
+        <result column="nowToBePaidJoinPrice" property="nowToBePaidJoinPrice" javaType="java.lang.Double" />
+        <result column="outNum" property="outNum" javaType="java.lang.Integer" />
+        <result column="joinNum" property="joinNum" javaType="java.lang.Integer" />
+        <result column="overdueNum" property="overdueNum" javaType="java.lang.Integer" />
+        <result column="overdueTotalPrice" property="overdueTotalPrice" javaType="java.lang.Double" />
+        <result column="overdueNowTotalPrice" property="overdueNowTotalPrice" javaType="java.lang.Double" />
+        <result column="overdueTotalNum" property="overdueTotalNum" javaType="java.lang.Integer" />
+        <result column="isFromUser" property="isFromUser" javaType="java.lang.Integer" />
+        <result column="remark" property="remark" javaType="java.lang.String" />
+    </resultMap>
+
+    <resultMap id="BaseUserCity" type="com.magic.weijd.entity.User" extends="BaseUser">
+        <association property="city" resultMap="com.magic.weijd.mapper.ICityMapper.BaseCity" columnPrefix="city_"/>
+    </resultMap>
+
+    <resultMap id="BasUserOrder" type="com.magic.weijd.entity.User" extends="BaseUser">
+        <association property="repayOrders" resultMap="com.magic.weijd.mapper.IOrderMapper.BaseResultMap" columnPrefix="o1_"/>
+    </resultMap>
+
+    <resultMap id="BaseUserOrder2" type="com.magic.weijd.entity.User" extends="BaseUserCity">
+        <association property="outOrders" column="userId=id,type=type_0" select="com.magic.weijd.mapper.IOrderMapper.nowToBePaidPrice"/>
+        <association property="repayOrders" column="userId=id,type=type_1" select="com.magic.weijd.mapper.IOrderMapper.nowToBePaidPrice"/>
+    </resultMap>
+
+    <sql id="userInfo">
+        u.id, u.userName, u.phone, u.idCard, u.idCardImg, u.avatar, u.qq, u.job, u.age, u.isAtSchool, u.cityId,
+        u.address, u.fatherName, u.fatherPhone, u.fatherJobAddress, u.momName, u.momPhone,u.isFromUser,u.remark,
+        u.momJobAddress,u.personJsonAry,u.createTime,u.updateTime,u.isValid,u.openId,u.creditPoints,u.payPwd,u.wx,u.isFromUser
+    </sql>
+
+    <sql id="cityInfo">
+        ci.id AS city_id,ci.`name` AS city_name,ci.parentId AS city_parentId,
+        ci.shortName AS city_shortName,ci.levelType AS city_levelType,
+        ci.cityCode AS city_cityCode,ci.mergerName AS city_mergerName
+    </sql>
+
+
+    <select id="info" resultMap="BaseUserOrder2">
+        SELECT
+        get_total_price(u.id,0) AS borrowOutTotalPrice,get_total_price(u.id,1) AS borrowJoinTotalPrice,
+        get_NowToBePaidPrice(u.id,0) AS nowToBePaidOutPrice,get_NowToBePaidPrice(u.id,1) AS nowToBePaidJoinPrice,
+        0 AS type_0,1 AS type_1,
+        <include refid="userInfo"/>,<include refid="cityInfo"/> FROM users u LEFT JOIN citys ci ON u.cityId = ci.id WHERE u.id = #{id}
+    </select>
+
+    <select id="queryUserByPhone" resultMap="BaseUserCity">
+        SELECT
+        get_total_price(u.id,0) AS borrowOutTotalPrice,get_total_price(u.id,1) AS borrowJoinTotalPrice,
+        get_NowToBePaidPrice(u.id,0) AS nowToBePaidOutPrice,get_NowToBePaidPrice(u.id,1) AS nowToBePaidJoinPrice,
+         u.*,<include refid="cityInfo"/>
+        FROM  users u LEFT JOIN citys ci ON u.cityId = ci.id
+        WHERE u.phone = #{phone}
+    </select>
+
+    <select id="findByIdCard" resultMap="BaseUserCity">
+        SELECT
+        get_total_price(u.id,0) AS borrowOutTotalPrice,get_total_price(u.id,1) AS borrowJoinTotalPrice,
+        get_NowToBePaidPrice(u.id,0) AS nowToBePaidOutPrice,get_NowToBePaidPrice(u.id,1) AS nowToBePaidJoinPrice,
+        u.*,<include refid="cityInfo"/>
+        FROM  users u LEFT JOIN citys ci ON u.cityId = ci.id
+        WHERE u.idCard = #{idCard}
+    </select>
+
+    <select id="findByWxOpenId" resultMap="BaseUserCity">
+        SELECT
+        get_total_price(u.id,0) AS borrowOutTotalPrice,get_total_price(u.id,1) AS borrowJoinTotalPrice,
+        u.*,<include refid="cityInfo"/>
+        FROM  users u LEFT JOIN citys ci ON u.cityId = ci.id
+        WHERE u.openId = #{openId}
+    </select>
+
+    <insert id="save" keyColumn="id" keyProperty="id" useGeneratedKeys="true" parameterType="com.magic.weijd.entity.User" >
+        insert into users (userName, phone,
+        idCard, idCardImg, avatar,
+        qq, job, age, isAtSchool,
+        cityId, address, fatherName,
+        fatherPhone, fatherJobAddress, momName,
+        momPhone, momJobAddress, personJsonAry,
+        createTime,updateTime,isValid,openId,payPwd,wx,
+        isFromUser,remark
+        )
+        values (#{userName}, #{phone},
+        #{idCard}, #{idCardImg}, #{avatar},
+        #{qq}, #{job}, #{age}, #{isAtSchool},
+        #{cityId}, #{address}, #{fatherName},
+        #{fatherPhone}, #{fatherJobAddress}, #{momName},
+        #{momPhone}, #{momJobAddress}, #{personJsonAry},
+        now(),now(),1,#{openId},#{payPwd},#{wx},0,#{remark}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.magic.weijd.entity.User" >
+        update users
+        <set >
+            <if test="isFromUser != null" >
+                isFromUser = #{isFromUser},
+            </if>
+            <if test="remark != null and remark != ''" >
+                remark = #{remark},
+            </if>
+            <if test="userName != null and userName != ''" >
+                userName = #{userName},
+            </if>
+            <if test="phone != null and phone != ''" >
+                phone = #{phone},
+            </if>
+            <if test="idCard != null and idCard != ''" >
+                idCard = #{idCard},
+            </if>
+            <if test="idCardImg != null and idCardImg != ''" >
+                idCardImg = #{idCardImg},
+            </if>
+            <if test="avatar != null and avatar != ''" >
+                avatar = #{avatar},
+            </if>
+            <if test="qq != null and qq != ''" >
+                qq = #{qq},
+            </if>
+            <if test="wx != null and wx != ''" >
+                wx = #{wx},
+            </if>
+            <if test="job != null and job != ''" >
+                job = #{job},
+            </if>
+            <if test="age != null and age != ''" >
+                age = #{age},
+            </if>
+            <if test="isAtSchool != null" >
+                isAtSchool = #{isAtSchool},
+            </if>
+            <if test="cityId != null" >
+                cityId = #{cityId},
+            </if>
+            <if test="address != null and address != ''" >
+                address = #{address},
+            </if>
+            <if test="fatherName != null and fatherName != ''" >
+                fatherName = #{fatherName},
+            </if>
+            <if test="fatherPhone != null and fatherPhone != ''" >
+                fatherPhone = #{fatherPhone},
+            </if>
+            <if test="fatherJobAddress != null and fatherJobAddress != ''" >
+                fatherJobAddress = #{fatherJobAddress},
+            </if>
+            <if test="momName != null and momName != ''" >
+                momName = #{momName},
+            </if>
+            <if test="momPhone != null and momPhone != ''" >
+                momPhone = #{momPhone},
+            </if>
+            <if test="momJobAddress != null and momJobAddress != ''" >
+                momJobAddress = #{momJobAddress},
+            </if>
+            <if test="personJsonAry != null and personJsonAry != ''" >
+                personJsonAry = #{personJsonAry},
+            </if>
+            <if test="openId != null and openId != ''" >
+                openId = #{openId},
+            </if>
+            <if test="payPwd != null and payPwd != ''" >
+                payPwd = #{payPwd},
+            </if>
+            <if test="isValid != null" >
+                isValid = #{isValid},
+            </if>
+            <if test="creditPoints != null" >
+                creditPoints = #{creditPoints},
+            </if>
+            updateTime = now()
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateAll" parameterType="com.magic.weijd.entity.User" >
+        update users set
+        userName = #{userName},
+        phone = #{phone},
+        idCard = #{idCard},
+        idCardImg = #{idCardImg},
+        avatar = #{avatar},
+        qq = #{qq},
+        wx = #{wx},
+        job = #{job},
+        age = #{age},
+        isAtSchool = #{isAtSchool},
+        cityId = #{cityId},
+        address = #{address},
+        fatherName = #{fatherName},
+        fatherPhone = #{fatherPhone},
+        fatherJobAddress = #{fatherJobAddress},
+        momName = #{momName},
+        momPhone = #{momPhone},
+        momJobAddress = #{momJobAddress},
+        personJsonAry = #{personJsonAry},
+        updateTime = now(),
+        isValid = #{isValid},
+        openId = #{openId},
+        payPwd = #{payPwd}
+        where id = #{id}
+    </update>
+
+
+    <select id="findUserCredit" resultMap="BasUserOrder">
+       SELECT
+        u.id,u.creditPoints,
+        u.userName,
+        u.phone,
+        get_total_price (u.id, 0) AS borrowOutTotalPrice,
+        get_total_price (u.id, 1) AS borrowJoinTotalPrice,
+        get_NowToBePaidPrice(u.id,0) AS nowToBePaidOutPrice,
+        get_NowToBePaidPrice(u.id,1) AS nowToBePaidJoinPrice,
+        get_join_out_num(u.id,0) AS outNum,
+        get_join_out_num(u.id,1) AS joinNum,
+        get_postpone_num(u.id,1) AS overdueNum,
+        get_overdue_price(u.id,1) AS overdueTotalPrice,
+        get_overdue_price(u.id,0) AS overdueNowTotalPrice,
+        get_postpone_total_num(u.id,1) AS overdueTotalNum,
+        IFNULL(tu.userName,'暂未确认') AS o1_toUserName,
+        o1.trueRepaymentTime AS o1_trueRepaymentTime,
+        o1.price AS o1_price,
+        o1.`status` AS o1_status,
+        o1.repaymentTime AS o1_repaymentTime,
+        o1.createTime AS o1_createTime
+        FROM
+            users u
+        LEFT JOIN orders o1 ON u.id = o1.toUserId
+        LEFT JOIN users tu ON o1.fromUserId = tu.id
+        WHERE
+        o1.toUserId = u.id
+        AND u.userName = #{userName}
+        AND u.idCard = #{idCard}
+    </select>
+
+    <select id="findUserCreditById" resultMap="BasUserOrder">
+        SELECT
+        u.id,u.creditPoints,
+        u.userName,
+        u.phone,
+        get_total_price (u.id, 0) AS borrowOutTotalPrice,
+        get_total_price (u.id, 1) AS borrowJoinTotalPrice,
+        get_NowToBePaidPrice(u.id,0) AS nowToBePaidOutPrice,
+        get_NowToBePaidPrice(u.id,1) AS nowToBePaidJoinPrice,
+        get_join_out_num(u.id,0) AS outNum,
+        get_join_out_num(u.id,1) AS joinNum,
+        get_postpone_num(u.id,1) AS overdueNum,
+        get_overdue_price(u.id,1) AS overdueTotalPrice,
+        get_overdue_price(u.id,0) AS overdueNowTotalPrice,
+        get_postpone_total_num(u.id,1) AS overdueTotalNum,
+        IFNULL(tu.userName,'暂未确认') AS o1_toUserName,
+        o1.trueRepaymentTime AS o1_trueRepaymentTime,
+        o1.price AS o1_price,
+        o1.`status` AS o1_status,
+        o1.repaymentTime AS o1_repaymentTime,
+        o1.createTime AS o1_createTime
+        FROM
+        users u
+        LEFT JOIN orders o1 ON u.id = o1.toUserId
+        LEFT JOIN users tu ON o1.fromUserId = tu.id
+        WHERE
+        o1.toUserId = u.id
+        AND u.id = #{id}
+    </select>
+
+    <select id="statistics" resultMap="BaseUserOrder2">
+        select
+            <if test="type == 0">
+                get_total_price (u.id, #{type}) AS borrowOutTotalPrice,
+            </if>
+            <if test="type == 1">
+                get_total_price (u.id, #{type}) AS borrowJoinTotalPrice,
+            </if>
+            get_NowToBePaidPrice(u.id,0) AS nowToBePaidOutPrice,
+            get_NowToBePaidPrice(u.id,1) AS nowToBePaidJoinPrice,
+            get_postpone_num(u.id,#{type}) AS overdueNum,
+            u.id,0 AS type_0,1 AS type_1
+        FROM users u
+        WHERE u.id = #{userId}
+    </select>
+
+    <select id="listForAdmin" resultMap="BaseUserCity" parameterType="map">
+        SELECT u.*,c.mergerName AS city_mergerName
+        FROM users u
+        LEFT JOIN citys c ON c.id = u.cityId
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.userName Like '%${userName}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            AND u.phone Like '%${phone}%'
+        </if>
+        <if test="idCard != null and idCard != ''">
+            AND u.idCard Like '%${idCard}%'
+        </if>
+        <if test="age != null">
+            AND u.age = #{age}
+        </if>
+        <if test="isFromUser != null">
+            AND u.isFromUser = #{isFromUser}
+        </if>
+        ORDER BY
+        <if test="pageArgs != null">
+            <if test="pageArgs.column != null and pageArgs.column != ''">
+                ${pageArgs.column} ${pageArgs.order},
+            </if>
+        </if>
+        u.id DESC
+        <if test="pageArgs != null">
+            limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+        </if>
+    </select>
+
+    <select id="listForAdminCount" resultType="int" parameterType="map">
+        SELECT
+        COUNT(*)
+        FROM users u
+        LEFT JOIN citys c ON c.id = u.cityId
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.userName Like '%${userName}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            AND u.phone Like '%${phone}%'
+        </if>
+        <if test="idCard != null and idCard != ''">
+            AND u.idCard Like '%${idCard}%'
+        </if>
+        <if test="age != null">
+            AND u.age = #{age}
+        </if>
+        <if test="isFromUser != null">
+            AND u.isFromUser = #{isFromUser}
+        </if>
+    </select>
+
+
+    <select id="statisticsListForAdmin" resultMap="BaseUser" parameterType="map">
+        SELECT u.*,
+            get_total_price (u.id, 0) AS borrowOutTotalPrice,
+            get_total_price (u.id, 1) AS borrowJoinTotalPrice
+        FROM users u LEFT JOIN orders o ON u.id = o.toUserId OR u.id = o.fromUserId
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.userName Like '%${userName}%'
+        </if>
+        <if test="idCard != null and idCard != ''">
+            AND u.idCard Like '%${idCard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            AND u.phone Like '%${phone}%'
+        </if>
+        <if test="age != null">
+            AND u.age = #{age}
+        </if>
+        <if test="startTime != null">
+            AND o.createTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND o.createTime <![CDATA[ <= ]]> #{endTime}
+        </if>
+        group by u.id
+        ORDER BY
+        <if test="pageArgs != null">
+            <if test="pageArgs.column != null and pageArgs.column != ''">
+                ${pageArgs.column} ${pageArgs.order},
+            </if>
+        </if>
+        o.id DESC
+        <if test="pageArgs != null">
+            limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+        </if>
+    </select>
+
+    <select id="statisticsListCount" resultType="int">
+        SELECT COUNT(DISTINCT(u.id)) FROM users u LEFT JOIN orders o ON u.id = o.toUserId OR u.id = o.fromUserId
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND u.userName Like '%${userName}%'
+        </if>
+        <if test="idCard != null and idCard != ''">
+            AND u.idCard Like '%${idCard}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            AND u.phone Like '%${phone}%'
+        </if>
+        <if test="age != null">
+            AND u.age = #{age}
+        </if>
+        <if test="startTime != null">
+            AND o.createTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND o.createTime <![CDATA[ <= ]]> #{endTime}
+        </if>
+    </select>
+
+
+</mapper>

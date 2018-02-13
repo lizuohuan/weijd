@@ -1,0 +1,437 @@
+/*隐藏联通流量插入HTML代码*/
+#tlbstoolbar{display: none !important;}
+
+/**reset**/
+* {
+	margin: 0;
+	padding: 0;
+	/**阻止移动端长按图片复制行为*/
+	-webkit-touch-callout: none;
+	/*禁用webkit内核浏览器的文字大小调整功能*/
+	-webkit-text-size-adjust: none;
+	/*避免点击a标签或者注册了click事件的元素时产生高亮*/
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	/*禁止用户进行复制选择 TODO iphone 有bug*/
+	/*-webkit-user-select: none; */
+}
+html,body { -webkit-user-select: none; width: 100%; height: 100%; background: inherit; font-size: 12px; font-family: "microsoft yahei"; position : relative;max-width: 640px; margin: 0 auto; -webkit-overflow-scrolling: touch; }
+ul,li {list-style: none;}
+a,a:hover {text-decoration: none;outline: none;}
+/*去掉浏览器自带的样式*/
+input,button {-webkit-appearance: none;border: none;outline: none;font-family: "microsoft yahei";}
+/*解决ios弹出键盘*/
+input[readonly]{-webkit-user-select: none !important;}
+textarea {border: none;outline: none;font-family: "microsoft yahei";resize: none;}
+/*输入框placeholder 的字体颜色*/
+input[type="text"]::-moz-placeholder,input[type="text"]::-webkit-input-placeholder {color: #999999;}
+input[type="text"]{height: 49px;}
+/*最大宽度不能超过屏幕*/
+img {max-width: 100%;}
+
+.hide{display: none;}
+.show{display: block;}
+.not-data{ text-align: center; padding: 50px 0; font-size: 12px; color: #999999; }
+
+/*覆盖MUI样式*/
+.mui-table-view-cell:after, .mui-table-view-cell:before, .mui-table-view:after, .mui-table-view:before{ background-color: #E1E1E1; }
+/*覆盖mui-content 默认的背景颜色*/
+.mui-content{ background: rgba(0, 0, 0, 0); height: 100%; }
+.mui-backdrop-action.mui-backdrop{ background-color: rgba(0,0,0,.6); }
+.mui-pull-bottom-pocket{ height:50px !important; bottom: 0px; }
+/*覆盖mui 上拉没有数据样式*/
+.mui-pull-caption{ font-size: 12px; font-weight: normal; }
+/*换行线条*/
+.mui-input-group .mui-input-row:after, .mui-input-group .mui-input-row:before, .mui-input-group:before, .mui-input-group:after{ background-color: #E1E1E1; }
+/*覆盖mui 输入框样式*/
+.mui-input-group, .mui-input-group:first-child{ margin-top: 0px; }
+.mui-input-row { height: 50px !important; }
+.mui-input { height: 50px !important; font-size: 14px !important; }
+.mui-input-group label { line-height: 50px; width: 22%; font-size: 14px; color: #000000; height: 50px; padding: 0; padding-left: 15px; font-size: 14px; font-family: "微软雅黑"; }
+.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea { width: 78%; }
+.mui-btn { padding: 10px; }
+/*覆盖mui 弹窗 z-index*/
+.mui-popup-backdrop{ z-index: 999; }
+.mui-scroll-wrapper{ left:50%; transform: translate(-50%, -0%); -webkit-transform: translate(-50%, -0%); -moz-transform: translate(-50%, -0%); -os-transform: translate(-50%, -0%); }
+.mui-tab-item .mui-tab-label{ font-size: 14px !important; }
+/*覆盖mui选中字体颜色*/
+.mui-active{ color: #2E75B5 !important; }
+/**单选框，多选框按钮颜色*/
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{ color: #2E75B5 !important; }
+/**开关*/
+.mui-switch-blue.mui-active{ border: 2px solid #2E75B5; background-color: #2E75B5; }
+/*覆盖mui toast 弹窗*/
+.mui-popup-title{ display: none; }
+.mui-popup-text{ padding: 15px; }
+.mui-popup-button{ color: #2E75B5; font-size: 14px; }
+.mui-popup-button-bold{ color: #555555; font-weight: normal !important; }
+.mui-toast-message{ background-color: rgba(0, 0, 0, 0.8) !important; color: #fff; }
+/*覆盖列表a标签点击背景颜色*/
+.mui-table-view-cell>a:not(.mui-btn).mui-active{ background: inherit; }
+/**底部导航条*/
+.mui-bar{ box-shadow: 0 0 1px rgba(0,0,0,0) !important; border-top: 1px solid #e1e1e1 !important; }
+.tab-bottom{ height: 60px; background: #fff; z-index: 999; }
+/*底部菜单*/
+.tab-icon img { position: relative; top: 6px; width: 18px; margin-bottom: 8px; }
+
+
+/*隐藏 angularjs 花括号*/
+[ng-cloak] { display: none; }
+
+/*项目主色--根据项目定*/
+.color{color: #2E75B5;}
+.bg-color{background-color: #2E75B5;}
+/*项目统一预览色*/
+.color-placeholder{color: #999999;}
+
+/*无色按钮*/
+.app-btn-border{
+	padding: 10px 20px;
+	color: #666666;
+	border: 1px solid #666666;
+	background: white;
+	text-align: center;
+	font-size: 14px;
+	transition: all .5s;
+	border-radius: 4px;
+	display: inline-block;
+}
+.app-btn-border:active, .app-btn-border:focus{
+	color: #666666;
+	border: 1px solid #666666;
+	background: white;
+}
+/*有色按钮*/
+.app-btn-background{
+	padding: 10px 20px;
+	color: white;
+	border: 1px solid #FF5404;
+	background: #FF5404;
+	text-align: center;
+	font-size: 14px;
+	transition: all .5s;
+	border-radius: 4px;
+	display: inline-block;
+}
+.app-btn-background:active, .app-btn-background:focus{
+	color: white;
+	border: 1px solid #FF5404;
+	background: #FF5404;
+}
+
+/*页面载入样式*/
+.app-content{
+	position: absolute;
+	background: rgba(0, 0, 0, 0);
+	background: #F4F8FA;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-os-transition: all 0.5s;
+	transform: scale(0.9);
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	-os-transform: scale(0.9);
+	opacity: 0;
+}
+.app-content-show{
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-os-transform: scale(1);
+	opacity: 1;
+}
+
+/*加载样式*/
+.loading-bar{
+	background: #FFF;
+	transition: all 1s;
+	position: fixed;
+	z-index: 999;
+	overflow: hidden;
+	top: 0;left: 0;right: 0; bottom: 0;
+	width: 100%;
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+.loading-bar-hide{
+	background: rgba(0, 0, 0, 0);
+}
+.loading-bar-hide .loading-content{
+	background: rgba(0, 0, 0, 0);
+	transform:  scale(0.6);
+	-webkit-transform:  scale(0.6);
+	-moz-transform:  scale(0.6);
+	-os-transform:  scale(0.6);
+}
+.loading-content{
+	transition: all 2s;
+	padding: 15px 20px;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 6px;
+	text-align: center;
+}
+.loading-object{
+	width: 40px;
+	height: 40px;
+	padding-left: 4px;
+	margin-bottom: 5px;
+}
+.loading-context{
+	color: rgba(255, 255, 255, 0.8);
+	font-size: 12px;
+}
+/*loading 样式*/
+.ball-loading {
+	position: relative;
+}
+.ball-loading> div {
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border: 2px solid #FFF;
+	border-bottom-color: transparent;
+	border-top-color: transparent;
+	border-radius: 100%;
+	height: 35px;
+	width: 35px;
+	-webkit-animation: rotate 1s 0s ease-in-out infinite;
+	animation: rotate 1s 0s ease-in-out infinite;
+}
+.ball-loading> div:last-child {
+	display: inline-block;
+	top: 10px;
+	left: 10px;
+	width: 15px;
+	height: 15px;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	border-color: #FFF transparent #FFF transparent;
+	-webkit-animation-direction: reverse;
+	animation-direction: reverse;
+}
+@keyframes rotate {
+	0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+	50% { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+	100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+/*小提示弹窗隔几秒消失*/
+.app-toast{
+	position: fixed;
+	z-index: 99999;
+	bottom: 50px;
+	background: rgba(0, 0, 0, 0.6);
+	color: #FFF;
+	font-size: 10px;
+	border-radius: 6px;
+	padding: 10px;
+	max-width: 80%;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-os-transition: all 0.2s;
+	left:50%;
+	transform: translate(-50%, -0%) scale(0);
+	-webkit-transform: translate(-50%, -0%) scale(0);
+	-moz-transform: translate(-50%, -0%) scale(0);
+	-os-transform: translate(-50%, -0%) scale(0);
+}
+.app-toast-show{
+	transform: translate(-50%, -0%) scale(1.2);
+	-webkit-transform: translate(-50%, -0%) scale(1.2);
+	-moz-transform: translate(-50%, -0%) scale(1.2);
+	-os-transform: translate(-50%, -0%) scale(1.2);
+}
+.app-toast-show-min{
+	transform: translate(-50%, -0%) scale(1);
+	-webkit-transform: translate(-50%, -0%) scale(1);
+	-moz-transform: translate(-50%, -0%) scale(1);
+	-os-transform: translate(-50%, -0%) scale(1);
+}
+
+/*自定义弹窗*/
+.app-shade{ /*统一遮罩*/
+	position: fixed;
+	z-index: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	transition: all .3s;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-os-transition: all .3s;
+	background: rgba(0, 0, 0, 0);
+	opacity: 0;
+}
+.app-shade-show{
+	opacity: 1;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 9998;
+}
+.app-modal{
+	position: fixed;
+	z-index: 9999;
+	overflow: hidden;
+	width: 300px;
+	background: #FFF;
+	transition: all .3s;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-os-transition: all .3s;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%) scale(0.8);
+	-webkit-transform: translate(-50%, -50%) scale(0.8);
+	-moz-transform: translate(-50%, -50%) scale(0.8);
+	-os-transform: translate(-50%, -50%) scale(0.8);
+	opacity: 0;
+}
+.app-modal-show{
+	opacity: 1;
+	transform: translate(-50%, -50%) scale(1);
+	-webkit-transform: translate(-50%, -50%) scale(1);
+	-moz-transform: translate(-50%, -50%) scale(1);
+	-os-transform: translate(-50%, -50%) scale(1);
+}
+.app-modal-title{
+	font-size: 16px;
+	text-align: center;
+	padding: 15px;
+}
+.app-modal-context{
+	font-size: 14px;
+	padding: 30px 15px;
+	padding-top: 0;
+	text-align: center;
+	position: relative;
+	max-height: 300px;
+	overflow-y: auto;
+}
+.app-modal-input{
+	border: 1px solid #E1E1E1 !important;
+	padding: 10px !important;
+	width: 100% !important;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 12px;
+	margin-bottom: 0 !important;
+}
+.app-modal-buttons {
+	position: relative;
+}
+.app-modal-buttons:before{
+	content: "";
+	background: #E1E1E1;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 1px;
+	width: 100%;
+	-webkit-transform: scaleY(.5); /*缩小半截*/
+	transform: scaleY(.5);
+}
+.app-modal-buttons span{
+	position: relative;
+	box-sizing: border-box;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 14px;
+}
+.app-modal-buttons .app-modal-cancel:after{
+	content: "";
+	background: #E1E1E1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 1px;
+	height: 100%;
+	-webkit-transform: scaleX(.5); /*缩小半截*/
+	transform: scaleX(.5);
+}
+.app-modal-cancel{
+	color: #666;
+	width: 50%;
+}
+.app-modal-confirm{
+	color: #0072e5;
+	width: 50%;
+}
+.app-alert-modal-confirm{
+	color: #0072e5;
+	width: 100%;
+}
+.app-modal-cancel:active, .app-modal-confirm:active{
+	background: #EEEEEE;
+}
+
+/*自定义单选框、多选框基于fontawesome图标库*/
+.app-radio, .app-checkbox{
+	display: inline-block;
+	border: 0;
+	outline: 0!important;
+	background-color: transparent;
+	-webkit-appearance: none;
+	box-sizing: border-box;
+	padding: 0;
+	font-size: 20px;
+	color: #999999;
+	margin-right: 10px !important;
+	position: relative;
+	top: 2px;
+	cursor: pointer;
+	/*width: 100%;*/
+}
+.app-radio:before, .app-checkbox:before{
+	content: "\f1db";
+}
+.app-radio:checked:before, .app-checkbox:checked:before{
+	content: "\f058";
+	color: #0072E5;
+}
+
+
+/*iphone6*/
+@media screen and (max-width:375px) {
+
+}
+/*iphone5*/
+@media screen and (max-width:320px) {
+
+}
+
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+
+}
+
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */
+
+}
+
+@media (device-height:667px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone6 */
+
+}
+
+@media (device-height:736px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone6 Plus */
+
+}
+

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magic.weijd.mapper.IOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.magic.weijd.entity.Order" >
+    <id column="id" property="id" javaType="java.lang.Integer" />
+    <result column="number" property="number" javaType="java.lang.String" />
+    <result column="fromUserId" property="fromUserId" javaType="java.lang.Integer" />
+    <result column="toUserId" property="toUserId" javaType="java.lang.Integer" />
+    <result column="createTime" property="createTime" javaType="java.util.Date" />
+    <result column="repaymentTime" property="repaymentTime" javaType="java.util.Date" />
+    <result column="trueRepaymentTime" property="trueRepaymentTime" javaType="java.util.Date" />
+    <result column="status" property="status" javaType="java.lang.Integer" />
+    <result column="type" property="type" javaType="java.lang.Integer" />
+    <result column="fromUserName" property="fromUserName" javaType="java.lang.String" />
+    <result column="fromUserIdCard" property="fromUserIdCard" javaType="java.lang.String" />
+    <result column="fromUserPhone" property="fromUserPhone" javaType="java.lang.String" />
+    <result column="fromUserAvatar" property="fromUserAvatar" javaType="java.lang.String" />
+    <result column="toUserName" property="toUserName" javaType="java.lang.String" />
+    <result column="toUserIdCard" property="toUserIdCard" javaType="java.lang.String" />
+    <result column="toUserPhone" property="toUserPhone" javaType="java.lang.String" />
+    <result column="toUserAvatar" property="toUserAvatar" javaType="java.lang.String" />
+    <result column="price" property="price" javaType="java.lang.Double" />
+    <result column="trueRepaymentPrice" property="trueRepaymentPrice" javaType="java.lang.Double" />
+    <result column="isUploadVideo" property="isUploadVideo" javaType="java.lang.Integer" />
+    <result column="repaymentMethodId" property="repaymentMethodId" javaType="java.lang.Integer" />
+    <result column="repaymentMethodName" property="repaymentMethodName" javaType="java.lang.String" />
+    <result column="loansUseId" property="loansUseId" javaType="java.lang.Integer" />
+    <result column="loansUseName" property="loansUseName" javaType="java.lang.String" />
+    <result column="interestId" property="interestId" javaType="java.lang.Integer" />
+    <result column="interestName" property="interestName" javaType="java.lang.String" />
+    <result column="videoUrl" property="videoUrl" javaType="java.lang.String" />
+    <result column="outTradeNO" property="outTradeNO" javaType="java.lang.String" />
+    <result column="payStatus" property="payStatus" javaType="java.lang.Integer" />
+    <result column="serviceFee" property="serviceFee" javaType="java.lang.Double" />
+    <result column="isValid" property="isValid" javaType="java.lang.Integer" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, `number`, fromUserId, toUserId, createTime, repaymentTime, status, `type`,
+    price,isUploadVideo,videoUrl,repaymentMethodId,loansUseId,interestId,trueRepaymentTime,trueRepaymentPrice
+  </sql>
+  <select id="info" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+      o.*,
+      fu.userName AS fromUserName ,fu.idCard AS fromUserIdCard , fu.phone AS fromUserPhone ,
+      tu.userName AS toUserName , tu.idCard AS toUserIdCard , tu.phone AS toUserPhone,
+      i.interest AS interestName
+    from orders o
+    LEFT JOIN users fu ON fu.id = o.fromUserId
+    LEFT JOIN users tu ON tu.id = o.toUserId,
+    interest i
+    where
+      o.interestId = i.id
+      AND o.id = #{id}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from orders
+    where id = #{id}
+  </delete>
+
+  <insert id="save" keyProperty="id" useGeneratedKeys="true" keyColumn="id"
+          parameterType="com.magic.weijd.entity.Order">
+    insert into orders (id, `number`, fromUserId,
+      toUserId, createTime, repaymentTime, `status` ,`type`,price,isUploadVideo,videoUrl,
+      repaymentMethodId,loansUseId,interestId,postponeRepaymentTime,trueRepaymentPrice,
+      outTradeNO,payStatus,serviceFee,isValid)
+    values (#{id}, #{number}, #{fromUserId},
+      #{toUserId}, now(), #{repaymentTime}, #{status},#{type},#{price},#{isUploadVideo},
+      #{videoUrl},#{repaymentMethodId},#{loansUseId},#{interestId},#{postponeRepaymentTime},
+      #{trueRepaymentPrice},#{outTradeNO},#{payStatus},#{serviceFee},1)
+  </insert>
+
+  <update id="updateNULL">
+    UPDATE orders SET postponeRepaymentTime = NULL WHERE  id = #{orderId}
+  </update>
+  <update id="update" parameterType="com.magic.weijd.entity.Order" >
+    update orders
+    <set >
+      <if test="isValid != null" >
+        isValid = #{isValid},
+      </if>
+      <if test="serviceFee != null" >
+        serviceFee = #{serviceFee},
+      </if>
+      <if test="outTradeNO != null" >
+        outTradeNO = #{outTradeNO},
+      </if>
+      <if test="payStatus != null" >
+        payStatus = #{payStatus},
+      </if>
+      <if test="fromUserId != null" >
+        fromUserId = #{fromUserId},
+      </if>
+      <if test="toUserId != null" >
+        toUserId = #{toUserId},
+      </if>
+      <if test="repaymentTime != null" >
+        repaymentTime = #{repaymentTime},
+      </if>
+      <if test="trueRepaymentTime != null" >
+        trueRepaymentTime = #{trueRepaymentTime},
+      </if>
+      <if test="postponeRepaymentTime != null" >
+        postponeRepaymentTime = #{postponeRepaymentTime},
+      </if>
+      <if test="trueRepaymentPrice != null" >
+        trueRepaymentPrice = #{trueRepaymentPrice},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="isUploadVideo != null" >
+        isUploadVideo = #{isUploadVideo},
+      </if>
+      <if test="videoUrl != null and videoUrl != ''" >
+        videoUrl = #{videoUrl},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <select id="listForWechat" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <if test="type == 0">
+      IFNULL(u.userName,'暂未确认') AS fromUserName,u.avatar AS fromUserAvatar,
+    </if>
+    <if test="type == 1">
+      IFNULL(u.userName,'暂未确认') AS toUserName,u.avatar AS toUserAvatar,
+    </if>
+    o.*,(SELECT interest FROM interest WHERE o.interestId = id ) AS interestName
+    from orders o  LEFT JOIN  users u ON 1 = 1
+    <if test="type == 0">
+      AND o.fromUserId = u.id
+    </if>
+    <if test="type == 1">
+      AND o.toUserId = u.id
+    </if>
+    where
+      o.status NOT IN (5)
+    <if test="userName != null and userName != ''">
+      AND u.userName LIKE '%${userName}%'
+    </if>
+    <if test="type == 0">
+      AND o.toUserId = #{userId}
+    </if>
+    <if test="type == 1">
+      AND o.fromUserId = #{userId}
+    </if>
+  </select>
+
+
+
+  <select id="listForAdmin" resultMap="BaseResultMap" parameterType="map">
+    SELECT o.*,uF.userName AS fromUserName ,uT.userName AS toUserName ,i.interest AS interestName
+    FROM orders o
+    LEFT JOIN users uF ON o.fromUserId = uf.id
+    LEFT JOIN users uT ON o.toUserId = uT.id,
+    interest i
+    WHERE o.interestId = i.id
+    <if test="userNameF != null and userNameF != ''">
+      AND uf.userName Like '%${userNameF}%'
+    </if>
+    <if test="userNameT != null and userNameT != ''">
+      AND uT.userName Like '%${userNameT}%'
+    </if>
+    <if test="idCardF != null and idCardF != ''">
+      AND uf.idCard Like '%${idCardF}%'
+    </if>
+    <if test="idCardT != null and idCardT != ''">
+      AND uT.idCard Like '%${idCardT}%'
+    </if>
+    <if test="phoneF != null and phoneF != ''">
+      AND uf.phone Like '%${phoneF}%'
+    </if>
+    <if test="phoneT != null and phoneT != ''">
+      AND uT.phone Like '%${phoneT}%'
+    </if>
+    <if test="ageF != null">
+      AND uf.age = #{ageF}
+    </if>
+    <if test="ageT != null">
+      AND ut.age = #{ageT}
+    </if>
+    <if test="priceMin != null">
+      AND o.price <![CDATA[ >= ]]> #{priceMin}
+    </if>
+    <if test="priceMax != null">
+      AND o.price <![CDATA[ <= ]]> #{priceMax}
+    </if>
+    <if test="startTimeC != null">
+      AND o.createTime <![CDATA[ >= ]]> #{startTimeC}
+    </if>
+    <if test="endTimeC != null">
+      AND o.createTime <![CDATA[ <= ]]> #{endTimeC}
+    </if>
+    <if test="startTimeR != null">
+      AND o.repaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="endTimeR != null">
+      AND o.repaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    ORDER BY
+    <if test="pageArgs != null">
+      <if test="pageArgs.column != null and pageArgs.column != ''">
+        ${pageArgs.column} ${pageArgs.order},
+      </if>
+    </if>
+    o.id DESC
+    <if test="pageArgs != null">
+      limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+    </if>
+  </select>
+
+
+
+  <select id="listForAdminCount" resultType="java.lang.Integer" parameterType="map">
+    SELECT
+    COUNT(0)
+    FROM orders o
+    LEFT JOIN users uF ON o.fromUserId = uf.id
+    LEFT JOIN users uT ON o.toUserId = uT.id
+    WHERE 1 = 1
+    <if test="userNameF != null and userNameF != ''">
+      AND uf.userName Like '%${userNameF}%'
+    </if>
+    <if test="userNameT != null and userNameT != ''">
+      AND uT.userName Like '%${userNameT}%'
+    </if>
+    <if test="idCardF != null and idCardF != ''">
+      AND uf.idCard Like '%${idCardF}%'
+    </if>
+    <if test="idCardT != null and idCardT != ''">
+      AND uT.idCard Like '%${idCardT}%'
+    </if>
+    <if test="phoneF != null and phoneF != ''">
+      AND uf.phone Like '%${phoneF}%'
+    </if>
+    <if test="phoneT != null and phoneT != ''">
+      AND uT.phone Like '%${phoneT}%'
+    </if>
+    <if test="ageF != null">
+      AND uf.age = #{ageF}
+    </if>
+    <if test="ageT != null">
+      AND ut.age = #{ageT}
+    </if>
+    <if test="priceMin != null">
+      AND o.price <![CDATA[ >= ]]> #{priceMin}
+    </if>
+    <if test="priceMax != null">
+      AND o.price <![CDATA[ <= ]]> #{priceMax}
+    </if>
+    <if test="startTimeC != null">
+      AND o.createTime <![CDATA[ >= ]]> #{startTimeC}
+    </if>
+    <if test="endTimeC != null">
+      AND o.createTime <![CDATA[ <= ]]> #{endTimeC}
+    </if>
+    <if test="startTimeR != null">
+      AND o.repaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="endTimeR != null">
+      AND o.repaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+  </select>
+
+
+  <select id="statistics" resultType="map" >
+    SELECT
+    (SELECT IFNULL(sum(o.price),0) FROM orders o WHERE o.status IN (3,4,5,7)) AS totalPrice,
+    (SELECT COUNT(DISTINCT(u.id)) FROM orders o,users u WHERE o.status IN (3,4,5,7) AND u.isAtSchool = 1 AND (u.id = o.toUserId OR u.id = o.fromUserId)) AS bigStudentNum,
+/*
+    (SELECT COUNT(DISTINCT(u.id)) FROM orders o,users u WHERE o.status IN (3,4,5,7) AND (u.id = o.toUserId OR u.id = o.fromUserId)) AS allPersonNum
+*/
+    (SELECT COUNT(DISTINCT(u.id)) FROM users u) AS allPersonNum
+  </select>
+
+
+
+  <select id="list" resultMap="BaseResultMap" parameterType="map">
+    SELECT o.*,u.userName AS fromUserName ,i.interest AS interestName
+    FROM
+    interest i,
+    orders o
+    LEFT JOIN users u ON 1 = 1
+    <if test="type == 0">
+      AND o.fromUserId = u.id
+    </if>
+    <if test="type == 1">
+      AND o.toUserId = u.id
+    </if>
+    WHERE o.interestId = i.id
+    <if test="userName != null and userName != ''">
+      AND u.userName Like '%${userName}%'
+    </if>
+    <if test="idCard != null and idCard != ''">
+      AND u.idCard Like '%${idCard}%'
+    </if>
+    <if test="phone != null and phone != ''">
+      AND u.phone Like '%${phoneF}%'
+    </if>
+    <if test="startTimeC != null">
+      AND o.createTime <![CDATA[ >= ]]> #{startTimeC}
+    </if>
+    <if test="endTimeC != null">
+      AND o.createTime <![CDATA[ <= ]]> #{endTimeC}
+    </if>
+    <if test="startTimeR != null">
+      AND o.repaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="endTimeR != null">
+      AND o.repaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="type == 0">
+      AND o.toUserId = #{userId}
+    </if>
+    <if test="type == 1">
+      AND o.fromUserId = #{userId}
+    </if>
+    ORDER BY
+    <if test="pageArgs != null">
+      <if test="pageArgs.column != null and pageArgs.column != ''">
+        ${pageArgs.column} ${pageArgs.order},
+      </if>
+    </if>
+    o.id DESC
+    <if test="pageArgs != null">
+      limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+    </if>
+  </select>
+
+
+
+  <select id="listCount" resultType="java.lang.Integer" parameterType="map">
+    SELECT
+    COUNT(0)
+    FROM  interest i, orders o
+    LEFT JOIN users u ON 1 = 1
+    <if test="type == 0">
+      AND o.fromUserId = u.id
+    </if>
+    <if test="type == 1">
+      AND o.toUserId = u.id
+    </if>
+    WHERE o.interestId = i.id
+    <if test="userName != null and userName != ''">
+      AND u.userName Like '%${userName}%'
+    </if>
+    <if test="idCard != null and idCard != ''">
+      AND u.idCard Like '%${idCard}%'
+    </if>
+    <if test="phone != null and phone != ''">
+      AND u.phone Like '%${phoneF}%'
+    </if>
+    <if test="startTimeC != null">
+      AND o.createTime <![CDATA[ >= ]]> #{startTimeC}
+    </if>
+    <if test="endTimeC != null">
+      AND o.createTime <![CDATA[ <= ]]> #{endTimeC}
+    </if>
+    <if test="startTimeR != null">
+      AND o.repaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="endTimeR != null">
+      AND o.repaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="type == 0">
+      AND o.toUserId = #{userId}
+    </if>
+    <if test="type == 1">
+      AND o.fromUserId = #{userId}
+    </if>
+  </select>
+
+
+
+
+  <select id="list2" resultMap="BaseResultMap" parameterType="map">
+    SELECT o.*,u.userName AS fromUserName,u2.userName AS toUserName,i.interest AS interestName
+    FROM
+    interest i,
+    orders o
+    LEFT JOIN users u ON o.fromUserId = u.id
+    LEFT JOIN users u2 ON o.toUserId = u2.id
+    WHERE o.interestId = i.id
+    <if test="fromUserName != null and fromUserName != ''">
+      AND u.userName Like '%${fromUserName}%'
+    </if>
+    <if test="toUserName != null and toUserName != ''">
+      AND u2.userName Like '%${toUserName}%'
+    </if>
+    <if test="startTimeC != null">
+      AND o.createTime <![CDATA[ >= ]]> #{startTimeC}
+    </if>
+    <if test="endTimeC != null">
+      AND o.createTime <![CDATA[ <= ]]> #{endTimeC}
+    </if>
+    <if test="startTimeR != null">
+      AND o.repaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="endTimeR != null">
+      AND o.repaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    ORDER BY
+    <if test="pageArgs != null">
+      <if test="pageArgs.column != null and pageArgs.column != ''">
+        ${pageArgs.column} ${pageArgs.order},
+      </if>
+    </if>
+    o.id DESC
+    <if test="pageArgs != null">
+      limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+    </if>
+  </select>
+
+
+  <select id="listCount2" resultType="java.lang.Integer" parameterType="map">
+    SELECT
+    COUNT(0)
+    FROM  interest i, orders o
+    LEFT JOIN users u ON o.fromUserId = u.id
+    LEFT JOIN users u2 ON o.toUserId = u2.id
+    <if test="type == 0">
+      AND o.fromUserId = u.id
+    </if>
+    <if test="type == 1">
+      AND o.toUserId = u.id
+    </if>
+    WHERE o.interestId = i.id
+    <if test="fromUserName != null and fromUserName != ''">
+      AND u.userName Like '%${fromUserName}%'
+    </if>
+    <if test="toUserName != null and toUserName != ''">
+      AND u2.userName Like '%${toUserName}%'
+    </if>
+    <if test="startTimeC != null">
+      AND o.createTime <![CDATA[ >= ]]> #{startTimeC}
+    </if>
+    <if test="endTimeC != null">
+      AND o.createTime <![CDATA[ <= ]]> #{endTimeC}
+    </if>
+    <if test="startTimeR != null">
+      AND o.repaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="endTimeR != null">
+      AND o.repaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ >= ]]> #{startTimeR}
+    </if>
+    <if test="startTimeT != null">
+      AND o.trueRepaymentTime <![CDATA[ <= ]]> #{endTimeR}
+    </if>
+  </select>
+
+  <select id="nowToBePaidPrice" resultMap="BaseResultMap">
+    select o.*,i.interest AS interestName from orders o,interest i WHERE o.status IN (3,4,7) AND o.interestId = i.id
+    <if test="type == 0">
+      AND o.toUserId = #{userId}
+    </if>
+    <if test="type == 1">
+      AND o.fromUserId = #{userId}
+    </if>
+
+  </select>
+</mapper>

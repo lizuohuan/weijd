@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magic.weijd.mapper.ISuggestMapper">
+
+
+
+    <insert id="addSuggest" parameterType="com.magic.weijd.entity.Suggest">
+        INSERT INTO suggest (content, userName, phone , imgUrl, createTime)
+        VALUES (#{content}, #{userName},#{phone},#{imgUrl}, NOW())
+    </insert>
+
+
+    <select id="listForAdmin" resultType="com.magic.weijd.entity.Suggest" parameterType="map">
+        SELECT
+          *
+        FROM suggest s
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND s.userName Like '%${userName}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            AND s.phone Like '%${phone}%'
+        </if>
+        <if test="startTime != null">
+            AND s.createTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND s.createTime <![CDATA[ <= ]]> #{endTime}
+        </if>
+        ORDER BY
+        <if test="pageArgs != null">
+            <if test="pageArgs.column != null and pageArgs.column != ''">
+                ${pageArgs.column} ${pageArgs.order},
+            </if>
+        </if>
+        s.id DESC
+        <if test="pageArgs != null">
+            limit #{pageArgs.pageStart}, #{pageArgs.pageSize}
+        </if>
+    </select>
+
+
+    <select id="listForAdminCount" resultType="java.lang.Integer" parameterType="map">
+        SELECT
+        COUNT(0)
+        FROM suggest s
+        WHERE 1 = 1
+        <if test="userName != null and userName != ''">
+            AND s.userName Like '%${userName}%'
+        </if>
+        <if test="phone != null and phone != ''">
+            AND s.phone Like '%${phone}%'
+        </if>
+        <if test="startTime != null">
+            AND s.createTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            AND s.createTime <![CDATA[ <= ]]> #{endTime}
+        </if>
+    </select>
+
+    <delete id="delete" >
+        DELETE FROM suggest WHERE id = #{id}
+    </delete>
+</mapper>

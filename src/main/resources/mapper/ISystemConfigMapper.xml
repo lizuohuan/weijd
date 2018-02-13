@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.magic.weijd.mapper.ISystemConfigMapper">
+
+    <update id="update" parameterType="com.magic.weijd.entity.SystemConfig">
+        UPDATE system_config SET
+        serviceFee = #{serviceFee}
+    </update>
+
+    <select id="info" resultType="com.magic.weijd.entity.SystemConfig">
+        select * from system_config
+    </select>
+</mapper>

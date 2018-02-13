@@ -1,0 +1,117 @@
+/*上传视频*/
+html,body{
+    background: #F4F8FA;
+}
+.div-bg{
+    position: relative;
+    margin: 15px;
+    background: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow: hidden;
+}
+.user-name{
+    font-size: 18px;
+}
+.user-time{
+    font-size: 14px;
+    color: #999999;
+    margin-bottom: 15px;
+}
+.title{
+    font-size: 16px;
+}
+.content{
+    text-indent: 2em;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.read{
+    font-size: 14px;
+    color: red;
+    margin-bottom: 15px;
+}
+.course{
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 24px;
+}
+
+.video-div{
+    height: 200px;
+    background: #000000;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+.video{
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+}
+.play-icon{
+    width: 66px;
+    height: 66px;
+    background: #FFF;
+    background: url("../../img/4.png");
+    background-size: cover;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -os-transform: translate(-50%, -50%);
+}
+
+.course span{
+    padding: 3px 10px;
+    margin-left: 5px;
+    color: #FFF;
+    background: #128DFC;
+    border-radius: 4px;
+}
+
+.submit-btn{
+    width: 100%;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.submit-btn:active, .submit-btn:focus{
+    color: white;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+
+
+.share-hint{
+    position: fixed;
+    right: 50px;
+    border: 2px solid #FFF;
+    background: rgba(0, 0, 0, 0);
+    padding: 10px;
+    top: 90px;
+    border-radius: 10px;
+    z-index: 9999;
+    display: none;
+    width: 80px;
+    color: #FFF;
+}
+.share-arrows{
+    width: 80px;
+    height: 87px;
+    background: url("../../img/13.png");
+    background-size: cover;
+    position: absolute;
+    top: -86px;
+    right: -20px;
+}
+

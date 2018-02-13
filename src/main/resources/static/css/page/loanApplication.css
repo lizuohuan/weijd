@@ -1,0 +1,135 @@
+/*申请借款*/
+.app-content{
+    overflow: hidden;
+}
+.title{
+    font-size: 14px;
+    color: #999999;
+    padding: 15px;
+}
+.app-form{
+    background: #FFF;
+    position: relative;
+    overflow: hidden;
+    padding: 1px 0;
+}
+.app-form:before{
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #E1E1E1;
+    left: 0;
+    top: 0;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-form:after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #E1E1E1;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-form li{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    clear: both;
+    box-sizing: border-box;
+}
+.app-form li:after{
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    left: 15px;
+    bottom: 0;
+    background: #E1E1E1;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-form li:last-child:after{
+    height: 0;
+}
+.app-form li label{
+    display: inline-block;
+    width: 28%;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.app-form li input, select{
+    width: 72%;
+    padding: 15px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 14px;
+    left: 28%;
+    position: relative;
+    background: #FFF;
+}
+
+.transcribe-video label{
+    position: relative !important;
+    width: 160px !important;
+    overflow: initial !important;
+    text-overflow: initial !important;
+    white-space: initial !important;
+}
+.transcribe-video input {
+    width: initial !important;
+    left: 10px !important;
+    padding: 0 !important;
+    font-size: 20px !important;
+}
+.hint{
+    color: #999999;
+    padding-top: 15px;
+    padding-left: 15px;
+}
+.hint .principal{
+
+}
+
+.button-bar{
+    padding: 15px;
+}
+.submit-btn{
+    width: 100%;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.submit-btn:active, .submit-btn:focus{
+    color: white;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+
+.agreement-bar{
+    padding: 15px;
+}
+.agreement-bar span{
+    font-size: 13px;
+}
+.agreement-bar .agreement-btn{
+    color: #0D8EFF;
+}
+

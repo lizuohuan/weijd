@@ -1,0 +1,31 @@
+/*电子借条*/
+body{overflow-x: hidden}
+.app-content{
+    background: #FFFFFF;
+}
+.content{
+    padding: 15px;
+}
+.max-title{
+    text-align: center;
+    font-size: 24px;
+}
+p {
+    font-size: 16px;
+    font-family: "新宋体" !important;
+    width: 100%;
+}
+.text-indent{
+    text-indent: 2em;
+}
+.download-btn{
+    color: blue;
+    margin-left: 30px;
+}
+table{width: 100%}
+table tr td{
+    padding: 10px;
+    font-size: 16px;
+    font-family: "新宋体" !important;
+}
+

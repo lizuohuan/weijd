@@ -1,0 +1,263 @@
+/*我的*/
+.my-head{
+    background: #FFF;
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+.bg{
+    height: 170px;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    z-index: 1;
+}
+.bg-blur{
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    background-position: center !important;
+    background-size: cover !important;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    z-index: 1;
+}
+.user-detail{
+    padding: 10px;
+    position: relative;
+    z-index: 2;
+}
+.user-head-img{
+    margin-top: 5px;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-size: cover !important;
+    background-position: center !important;
+    background: #999999;
+    position: relative;
+}
+.user-head-img:before{
+    content: "";
+    position: absolute;
+    border: 2px solid #FFF;
+    border-radius: 50%;
+    top: -7px;
+    left: -7px;
+    right: -7px;
+    bottom: -7px;
+}
+.user-name{
+    font-size: 18px;
+    margin-top: 8px;
+    color: #FFF;
+}
+.user-integral{
+    padding: 5px;
+}
+.user-integral i{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: url('../../img/1.png');
+    background-size: cover;
+}
+.user-integral span{
+    font-size: 16px;
+    position: relative;
+    top: -3px;
+    color: #FFF;
+}
+.user-phone{
+    color: #FFF;
+    font-size: 16px;
+}
+.user-info{
+    padding: 5px;
+    overflow: hidden;/*clear:both 、overflow: hidden; 清除浮动*/
+    position: relative;
+    z-index: 99;
+}
+.user-info div{
+    width: 50%;
+    float: left;
+    text-align: center;
+    position: relative;
+}
+.user-info div i{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: #999999;
+    background-size: cover !important;
+}
+.user-info div:nth-child(1) i{
+    background: url("../../img/3.png");
+}
+.user-info div:nth-child(2) i{
+    background: url("../../img/2.png");
+}
+.user-info div:first-child:before{
+    content: "";
+    width: 1px;
+    -webkit-transform: scaleX(.5); /*缩小半截*/
+    transform: scaleX(.5);
+    height: 90%;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background: #E1E1E1;
+}
+.user-info span{
+    font-size: 16px;
+    position: relative;
+    top: -6px;
+}
+.user-info .hint{
+    margin-left: 5px;
+}
+.user-info .number{
+    margin-left: 10px;
+}
+
+/*列表菜单栏*/
+.user-menu{
+    margin-top: 10px;
+    background: #FFF;
+}
+.app-list-menu li{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.app-list-menu li:after{
+    content: "";
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    left: 60px;
+    bottom: 0;
+    background: #E1E1E1;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.app-list-menu li:last-child:after{
+    height: 0;
+}
+.app-list-menu li a{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 13px;
+    color: #000;
+}
+.app-list-menu li a:active, .app-list-menu li a:focus{
+    color: #000;
+}
+.app-list-menu li a i{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: #999999;
+    position: absolute;
+    top: 10px;
+    background-size: cover !important;
+}
+.app-list-menu li:nth-child(1) i{
+    background: url("../../img/5.png");
+}
+.app-list-menu li:nth-child(2) i{
+    background: url("../../img/6.png");
+}
+.app-list-menu li:nth-child(3) i{
+    background: url("../../img/7.png");
+}
+.app-list-menu li:nth-child(4) i{
+    background: url("../../img/8.png");
+}
+.app-list-menu li:nth-child(5) i{
+    background: url("../../img/15.png");
+}
+.app-list-menu li a span{
+    font-size: 14px;
+    margin-left: 45px;
+}
+.fix-buttons{
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    clear: both;
+    z-index: 99;
+}
+.fix-buttons div{
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.fix-left{
+    padding-right: 15px !important;
+}
+.fix-right{
+    padding-left: 15px !important;
+}
+.fix-buttons button{
+    width: 100%;
+    padding: 5px 10px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    transition: all .5s;
+    border-radius: 4px;
+    display: inline-block;
+}
+.fix-buttons button i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #FFF;
+    position: relative;
+    top: 3px;
+    margin-right: 10px;
+    background-size: cover !important;
+}
+.fix-buttons .fix-left i{
+    background: url("../../img/9.png");
+}
+.fix-buttons .fix-right i{
+    background: url("../../img/10.png");
+}
+.fix-buttons button span{
+    position: relative;
+    top: -2px;
+}
+.fix-left button{
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.fix-left button:active, .fix-left button:focus{
+    color: white;
+    border: 1px solid #01A358;
+    background: #01A358;
+}
+.fix-right button{
+    border: 1px solid #0D8EFF;
+    background: #0D8EFF;
+}
+.fix-right button:active, .fix-right button:focus{
+    color: white;
+    border: 1px solid #0D8EFF;
+    background: #0D8EFF;
+}
+
+/*iphone5*/
+@media screen and (max-width:320px) {
+    /*.app-content{padding-bottom: 60px;}*/
+}
+

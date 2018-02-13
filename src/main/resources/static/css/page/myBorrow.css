@@ -1,0 +1,120 @@
+/*我的借入*/
+.balance-bar{
+    height: 200px;
+    background: #19AB6B;
+    text-align: center;
+    position: relative;
+    background: url("../../img/bg1.png") no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+.center{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -os-transform: translate(-50%, -50%);
+}
+.title-hint{
+    color: #FFF;
+}
+.money{
+    font-size: 40px;
+    color: #FFF;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+.money-item{
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+.money-item div{
+    font-size: 14px;
+    color: #FFF;
+}
+.search-bar{
+    background: #FFF;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    padding-right: 60px;
+    position: relative;
+}
+.search-bar input{
+    width: 100%;
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #CFCFCF;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+.search-bar i{
+    color: #FFF;
+    font-size: 16px;
+}
+.search-bar span{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    width: 50px;
+    background: #CFCFCF;
+    text-align: center;
+    border-radius: 0 6px 6px 0;
+}
+.data-list{
+    margin-top: 10px;
+    background: #FFF;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+    overflow: hidden;
+}
+.data-list .data-head, .data-body{
+    width: 100%;
+    text-align: center;
+    clear: both;
+}
+.data-list .data-head div{
+    float: left;
+    width: 33.33%;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.data-body .data-item{
+    position: relative;
+    clear: both;
+}
+.data-body .data-item:before{
+    content: "";
+    height: 1px;
+    width: 100%;
+    background: #E1E1E1;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(.5); /*缩小半截*/
+    transform: scaleY(.5);
+}
+.data-body .data-item div{
+    float: left;
+    width: 33.33%;
+    font-size: 13px;
+    padding: 10px;
+    color: #999999;
+    box-sizing: border-box;
+}
+
+.mui-table-view-cell{
+    color: #000;
+}
+

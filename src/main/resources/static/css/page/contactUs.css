@@ -1,0 +1,65 @@
+/*联系我们*/
+.contactUs-bg{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    background: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.title{
+    height: 250px;
+    box-sizing: border-box;
+    background: #20AE6C;
+    background: url("../../img/bg.png") no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    border-radius: 10px 10px 0 0;
+    padding: 50px 20px;
+}
+.title i{
+    display: inline-block;
+    width: 40px;
+    height: 41px;
+    background: #FFF;
+    background: url("../../img/12.png");
+    background-size: cover;
+}
+.title .title-han{
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFF;
+    margin-top: 20px;
+}
+.title .title-en{
+    font-size: 12px;
+    color: #FFF;
+}
+.bottom{
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+}
+.bottom div{
+    font-size: 14px;
+}
+.bottom .service{
+    margin-bottom: 10px;
+}
+.bottom .last-service{
+    margin-bottom: 0;
+}
+.hint{
+    font-size: 12px;
+    color: #999999;
+}
+
+/*iphone6*/
+@media screen and (max-width:320px) {
+    .title{
+        height: 200px;
+    }
+}
+

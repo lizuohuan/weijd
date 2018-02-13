@@ -1,0 +1,46 @@
+#server:
+#  port: 8080
+#  contextPath: /weijd/admin
+#  context-path: /index
+
+spring:
+  datasource:
+    name: weijd
+    url: jdbc:mysql://www.cdxinqu.cn:3306/weijd?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: weijdpwd
+    driver-class-name: com.mysql.jdbc.Driver
+  freemarker:
+    allow-request-override: false
+    cache: false
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html
+    expose-request-attributes: false
+    request-context-attribute: request
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+    prefix:
+    template-loader-path: classpath:/templates/view/
+    suffix: .ftl
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: root
+    timeout: 0
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 1024Mb
+      max-request-size: 1024Mb
+
+  output:
+    ansi:
+      enabled: ALWAYS
+mybatis:
+  type-aliases-package: com.magic.weijd.mapper
+  mapper-locations: classpath:mapper/*.xml
+
+debug: false
+
